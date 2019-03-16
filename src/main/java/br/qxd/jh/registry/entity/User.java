@@ -26,13 +26,26 @@ public class User {
 	private double workedHours;
 	
 	public User() {
-		
+		super();
+		this.username = "";
+		this.password = "";
+		this.name = "";
+		this.workedHours = 0;
 	}
 
 	public User(Long id, @NotNull String username, @NotNull String password, @NotNull String name,
 			@NotNull double workedHours) {
 		super();
 		this.id = id;
+		this.username = username;
+		this.password = password;
+		this.name = name;
+		this.workedHours = workedHours;
+	}
+	
+	public User(@NotNull String username, @NotNull String password, @NotNull String name,
+			@NotNull double workedHours) {
+		super();
 		this.username = username;
 		this.password = password;
 		this.name = name;
