@@ -7,6 +7,14 @@ import javax.validation.constraints.Size;
 
 import br.qxd.jh.registry.entity.HoursRecord;
 
+
+/**
+ * 
+ * @author João Henrique
+ * 
+ * DTO para receber os dados para a entidade User.
+ *
+ */
 public class UserDTO {
 	
 	private Long id;

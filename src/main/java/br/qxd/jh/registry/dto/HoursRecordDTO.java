@@ -5,6 +5,13 @@ import javax.validation.constraints.NotNull;
 
 import br.qxd.jh.registry.entity.User;
 
+/**
+ * 
+ * @author João Henrique
+ * 
+ * DTO para receber os dados para a entidade HoursRecord.
+ *
+ */
 public class HoursRecordDTO {
 
 	private Long id;
