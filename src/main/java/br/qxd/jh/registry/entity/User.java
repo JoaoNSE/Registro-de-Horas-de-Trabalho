@@ -1,9 +1,12 @@
 package br.qxd.jh.registry.entity;
 
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 
 @Entity
@@ -22,34 +25,29 @@ public class User {
 	@NotNull
 	private String name;
 	
-	@NotNull
-	private double workedHours;
+	@OneToMany(targetEntity=HoursRecord.class)
+	private List<HoursRecord> hoursRecords;
 	
 	public User() {
 		super();
 		this.username = "";
 		this.password = "";
 		this.name = "";
-		this.workedHours = 0;
 	}
 
-	public User(Long id, @NotNull String username, @NotNull String password, @NotNull String name,
-			@NotNull double workedHours) {
+	public User(Long id, @NotNull String username, @NotNull String password, @NotNull String name) {
 		super();
 		this.id = id;
 		this.username = username;
 		this.password = password;
 		this.name = name;
-		this.workedHours = workedHours;
 	}
 	
-	public User(@NotNull String username, @NotNull String password, @NotNull String name,
-			@NotNull double workedHours) {
+	public User(@NotNull String username, @NotNull String password, @NotNull String name) {
 		super();
 		this.username = username;
 		this.password = password;
 		this.name = name;
-		this.workedHours = workedHours;
 	}
 
 	public Long getId() {
@@ -84,14 +82,11 @@ public class User {
 		this.name = name;
 	}
 
-	public double getWorkedHours() {
-		return workedHours;
+	public List<HoursRecord> getHoursRecords() {
+		return hoursRecords;
 	}
 
-	public void setWorkedHours(double workedHours) {
-		this.workedHours = workedHours;
+	public void setHoursRecords(List<HoursRecord> hoursRecords) {
+		this.hoursRecords = hoursRecords;
 	}
-	
-	
-	
 }
