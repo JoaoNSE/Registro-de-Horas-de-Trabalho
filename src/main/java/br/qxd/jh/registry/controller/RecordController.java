@@ -16,7 +16,7 @@ import br.qxd.jh.registry.service.HoursRecordService;
 
 @RequestMapping("/record")
 @RestController
-public class HoursController {
+public class RecordController {
 	
 	@Autowired
 	private HoursRecordService hoursService;
