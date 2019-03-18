@@ -1,4 +1,4 @@
-package br.qxd.jh.registry.entity;
+package br.qxd.jh.registry.model;
 
 import java.util.Date;
 

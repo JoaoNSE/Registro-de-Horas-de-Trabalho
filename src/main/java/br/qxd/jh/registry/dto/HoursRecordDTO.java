@@ -3,7 +3,7 @@ package br.qxd.jh.registry.dto;
 import java.util.Date;
 import javax.validation.constraints.NotNull;
 
-import br.qxd.jh.registry.entity.User;
+import br.qxd.jh.registry.model.User;
 
 /**
  * 

@@ -5,7 +5,7 @@ import java.util.List;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import br.qxd.jh.registry.entity.HoursRecord;
+import br.qxd.jh.registry.model.HoursRecord;
 
 
 /**

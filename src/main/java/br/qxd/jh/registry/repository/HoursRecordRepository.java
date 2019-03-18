@@ -5,7 +5,7 @@ import java.util.Collection;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
-import br.qxd.jh.registry.entity.HoursRecord;
+import br.qxd.jh.registry.model.HoursRecord;
 
 public interface HoursRecordRepository extends CrudRepository<HoursRecord, Long>{
 

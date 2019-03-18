@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.qxd.jh.registry.dto.HoursRecordDTO;
-import br.qxd.jh.registry.entity.HoursRecord;
-import br.qxd.jh.registry.entity.User;
+import br.qxd.jh.registry.model.HoursRecord;
+import br.qxd.jh.registry.model.User;
 import br.qxd.jh.registry.service.HoursRecordService;
 
 @RequestMapping("/records")

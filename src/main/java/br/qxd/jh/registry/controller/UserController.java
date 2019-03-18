@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.qxd.jh.registry.dto.UserDTO;
-import br.qxd.jh.registry.entity.User;
+import br.qxd.jh.registry.model.User;
 import br.qxd.jh.registry.repository.UserRepository;
 
 @RequestMapping("/users")
