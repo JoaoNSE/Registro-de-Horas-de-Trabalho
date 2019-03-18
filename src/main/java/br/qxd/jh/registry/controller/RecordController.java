@@ -1,6 +1,9 @@
 package br.qxd.jh.registry.controller;
 
 import java.util.List;
+
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,7 +17,7 @@ import br.qxd.jh.registry.entity.HoursRecord;
 import br.qxd.jh.registry.entity.User;
 import br.qxd.jh.registry.service.HoursRecordService;
 
-@RequestMapping("/record")
+@RequestMapping("/records")
 @RestController
 public class RecordController {
 	
@@ -28,8 +31,8 @@ public class RecordController {
 		return hoursService.getRecordsFromUser(user);
 	}
 	
-	@PostMapping("/save")
-	public void insertRecord(@RequestBody HoursRecordDTO record) {
+	@PostMapping()
+	public void insertRecord(@Valid @RequestBody HoursRecordDTO record) {
 		hoursService.insertRecordInUser(record.getUser(), record.getWorkedHours(), record.getDate());
 	}
 

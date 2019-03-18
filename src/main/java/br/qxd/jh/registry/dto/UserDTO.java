@@ -9,7 +9,7 @@ import br.qxd.jh.registry.entity.HoursRecord;
 
 public class UserDTO {
 	
-private Long id;
+	private Long id;
 	
 	@NotNull
 	@Size(min=5, message="Username should have atleast 5 characters")
