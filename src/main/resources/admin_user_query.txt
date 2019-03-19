@@ -1,1 +1,1 @@
-insert into user(name, password, username) values ('admin2', '$2a$10$zzWxgI.f4KfQALYxyk4V9OBXas4b.hpPdrWeTx0wRJXGevZhStIEO', 'admin2')
+insert into user(name, password, username) values ('admin', '$2a$10$zzWxgI.f4KfQALYxyk4V9OBXas4b.hpPdrWeTx0wRJXGevZhStIEO', 'admin')

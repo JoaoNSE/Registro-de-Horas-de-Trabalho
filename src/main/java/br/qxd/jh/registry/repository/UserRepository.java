@@ -8,6 +8,8 @@ import br.qxd.jh.registry.model.User;
 
 public interface UserRepository extends CrudRepository<User, Long>{
 
-	Optional<User> findByUsername(String username);
+	public Optional<User> findByUsername(String username);
+	
+	public boolean existsByUsername(String username);
 	
 }

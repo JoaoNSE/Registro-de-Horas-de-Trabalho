@@ -15,4 +15,12 @@ public class UserService {
 	public void saveUser(User user) {
 		userRepo.save(user);
 	}
+	
+	public Iterable<User> findAll() {
+		return userRepo.findAll();
+	}
+	
+	public boolean existsByUsername(String username) {
+		return userRepo.existsByUsername(username);
+	}
 }
