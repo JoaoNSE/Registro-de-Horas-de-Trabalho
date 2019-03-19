@@ -5,6 +5,7 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -29,8 +30,10 @@ public class RecordController {
 	}
 	
 	@PostMapping()
-	public void insertRecord(@Valid @RequestBody HoursRecordDTO record) {
+	public ResponseEntity<String> insertRecord(@Valid @RequestBody HoursRecordDTO record) {
 		hoursService.insertRecordInUser(record.getUserId(), record.getWorkedHours(), record.getDate());
+		
+		return ResponseEntity.ok("Record inserted successfully in user with id: " + record.getId());
 	}
 
 }

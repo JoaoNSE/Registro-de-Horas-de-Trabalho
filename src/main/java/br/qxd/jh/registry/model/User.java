@@ -17,6 +17,8 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
 @Table(uniqueConstraints = {
         @UniqueConstraint(columnNames = {
@@ -38,8 +40,9 @@ public class User {
 	@NotNull
 	private String name;
 	
-	@OneToMany(fetch=FetchType.EAGER, targetEntity=HoursRecord.class)
+	@OneToMany(fetch=FetchType.LAZY, targetEntity=HoursRecord.class)
 	@JoinColumn(name="user_id")
+	@JsonManagedReference
 	private List<HoursRecord> hoursRecords;
 	
 	@ManyToMany(fetch = FetchType.EAGER)

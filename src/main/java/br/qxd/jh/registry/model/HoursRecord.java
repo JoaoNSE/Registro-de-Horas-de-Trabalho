@@ -3,6 +3,7 @@ package br.qxd.jh.registry.model;
 import java.util.Date;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -11,6 +12,8 @@ import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 
 import org.springframework.format.annotation.DateTimeFormat;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
 public class HoursRecord {
@@ -26,8 +29,9 @@ public class HoursRecord {
 	@DateTimeFormat(pattern="dd/MM/yyyy")	
 	private Date date;
 	
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="user_id")
+	@JsonBackReference
 	private User user;
 	
 	public HoursRecord() {
