@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -32,9 +33,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Autowired
 	private UserDetailServiceImpl userDetailService;
 	
+	@Bean
+    @Override
+    public AuthenticationManager authenticationManagerBean() throws Exception {
+        return super.authenticationManagerBean();
+    }
+	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception{
-		http.csrf().and().cors().disable()
+		http.csrf().disable()
 		.exceptionHandling().authenticationEntryPoint(unauthorizedHandler)
 			.and()
 		.sessionManagement()
@@ -48,7 +55,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			.anyRequest().authenticated();
 			
 		
-		
 		http.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
 	}
 	
@@ -60,7 +66,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	public void configure(WebSecurity web) throws Exception{
-		web.ignoring().antMatchers("/css/**", "/fonts/**", "/img/**", "/js/**", "/h2/**");
+		web.ignoring().antMatchers("/h2/**");
 	}
 		
 }

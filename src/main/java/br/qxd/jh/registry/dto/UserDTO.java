@@ -2,7 +2,7 @@ package br.qxd.jh.registry.dto;
 
 import java.util.List;
 
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 import br.qxd.jh.registry.model.HoursRecord;
@@ -19,15 +19,15 @@ public class UserDTO {
 	
 	private Long id;
 	
-	@NotNull
+	@NotBlank
 	@Size(min=5, message="Username should have atleast 5 characters")
 	private String username;
 	
-	@NotNull
+	@NotBlank
  	@Size(min=8, message="Password should have atleast 8 characters")
 	private String password;
 
-	@NotNull
+	@NotBlank
 	private String name;
 	
 	private List<HoursRecord> hoursRecords;

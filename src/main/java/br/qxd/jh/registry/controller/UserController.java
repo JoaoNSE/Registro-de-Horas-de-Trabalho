@@ -5,6 +5,8 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -22,14 +24,18 @@ public class UserController {
 	@Autowired
 	private UserRepository userRepo;
 	
+	@Bean
+	private BCryptPasswordEncoder bCryptEncoder () {
+		return new BCryptPasswordEncoder();
+	}
+	
 	@PostMapping()
 	public void addUserData(@Valid @RequestBody UserDTO user) {
-		userRepo.save(new User(user.getUsername(), user.getPassword(), user.getName()));
+		userRepo.save(new User(user.getUsername(), bCryptEncoder().encode(user.getPassword()), user.getName()));
 	}
 	
 	@GetMapping()
 	public List<User> listAllUsers() {
 		return (List<User>) userRepo.findAll();
 	}
-
 }
