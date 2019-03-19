@@ -1,6 +1,7 @@
 package br.qxd.jh.registry.dto;
 
 import java.util.Date;
+
 import javax.validation.constraints.NotNull;
 
 
@@ -24,13 +25,6 @@ public class HoursRecordDTO {
 	@NotNull
 	private Long userId;
 	
-	public HoursRecordDTO() {
-		super();
-		this.workedHours = 0;
-		this.date = new Date();
-		this.userId = Long.valueOf(0);
-	}
-	
 	public HoursRecordDTO(Long id, double workedHours, Date date, Long userId) {
 		super();
 		this.id = id;
@@ -38,8 +32,6 @@ public class HoursRecordDTO {
 		this.date = date;
 		this.userId = userId;
 	}
-
-
 
 	public Long getId() {
 		return id;

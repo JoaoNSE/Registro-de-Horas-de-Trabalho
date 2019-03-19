@@ -33,7 +33,7 @@ public class RecordController {
 	public ResponseEntity<String> insertRecord(@Valid @RequestBody HoursRecordDTO record) {
 		hoursService.insertRecordInUser(record.getUserId(), record.getWorkedHours(), record.getDate());
 		
-		return ResponseEntity.ok("Record inserted successfully in user with id: " + record.getId());
+		return ResponseEntity.ok("Record inserted successfully in user with id: " + record.getUserId());
 	}
 
 }
