@@ -16,11 +16,27 @@ public class HoursRecordService {
 	@Autowired
 	private HoursRecordRepository hoursRepo;
 	
-	public List<HoursRecord> getRecordsFromUser(User user) {
-		return (List<HoursRecord>) hoursRepo.findRecordsByUserId(user.getId());
+	/**
+	 * Recebe um ID de usuário como parâmetro e retorna todos os registros de
+	 * horas desse usuário.
+	 * 
+	 * @param user
+	 * @return List<HoursRecord>
+	 */
+	public List<HoursRecord> getRecordsFromUser(Long userId) {
+		return (List<HoursRecord>) hoursRepo.findRecordsByUserId(userId);
 	}
 	
-	public void insertRecordInUser(User user, double hours, Date date) {
+	/**
+	 * Adiciona um novo registro de horas no usuário informado.
+	 * 
+	 * @param user
+	 * @param hours
+	 * @param date
+	 */
+	public void insertRecordInUser(Long userId, double hours, Date date) {
+		User user = new User();
+		user.setId(userId);
 		HoursRecord record = new HoursRecord(hours, date, user);
 		hoursRepo.save(record);
 	}

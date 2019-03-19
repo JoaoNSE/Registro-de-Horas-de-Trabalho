@@ -38,7 +38,8 @@ public class User {
 	@NotNull
 	private String name;
 	
-	@OneToMany(targetEntity=HoursRecord.class)
+	@OneToMany(fetch=FetchType.EAGER, targetEntity=HoursRecord.class)
+	@JoinColumn(name="user_id")
 	private List<HoursRecord> hoursRecords;
 	
 	@ManyToMany(fetch = FetchType.EAGER)

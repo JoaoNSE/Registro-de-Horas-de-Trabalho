@@ -1,15 +1,16 @@
 package br.qxd.jh.registry.dto;
 
 import java.util.Date;
+
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
-import br.qxd.jh.registry.model.User;
 
 /**
  * 
  * @author João Henrique
  * 
- * DTO para receber os dados para a entidade HoursRecord.
+ * DTO para receber os dados de requisições sobre registros de horas.
  *
  */
 public class HoursRecordDTO {
@@ -23,21 +24,21 @@ public class HoursRecordDTO {
 	private Date date;
 	
 	@NotNull
-	private User user;
+	private Long userId;
 	
 	public HoursRecordDTO() {
 		super();
 		this.workedHours = 0;
 		this.date = new Date();
-		this.user = new User();
+		this.userId = Long.valueOf(0);
 	}
 	
-	public HoursRecordDTO(Long id, double workedHours, Date date, User user) {
+	public HoursRecordDTO(Long id, double workedHours, Date date, Long userId) {
 		super();
 		this.id = id;
 		this.workedHours = workedHours;
 		this.date = date;
-		this.user = user;
+		this.userId = userId;
 	}
 
 
@@ -66,12 +67,12 @@ public class HoursRecordDTO {
 		this.date = date;
 	}
 
-	public User getUser() {
-		return user;
+	public Long getUserId() {
+		return userId;
 	}
 
-	public void setUser(User user) {
-		this.user = user;
+	public void setUserId(Long userId) {
+		this.userId = userId;
 	}
 	
 	

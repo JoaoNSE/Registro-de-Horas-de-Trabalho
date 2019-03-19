@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.qxd.jh.registry.dto.HoursRecordDTO;
 import br.qxd.jh.registry.model.HoursRecord;
-import br.qxd.jh.registry.model.User;
 import br.qxd.jh.registry.service.HoursRecordService;
 
 @RequestMapping("/records")
@@ -26,14 +25,12 @@ public class RecordController {
 	
 	@GetMapping("/{id}")
 	public List<HoursRecord> getRecords(@PathVariable Long id) {
-		User user = new User();
-		user.setId(id);
-		return hoursService.getRecordsFromUser(user);
+		return hoursService.getRecordsFromUser(id);
 	}
 	
 	@PostMapping()
 	public void insertRecord(@Valid @RequestBody HoursRecordDTO record) {
-		hoursService.insertRecordInUser(record.getUser(), record.getWorkedHours(), record.getDate());
+		hoursService.insertRecordInUser(record.getUserId(), record.getWorkedHours(), record.getDate());
 	}
 
 }
