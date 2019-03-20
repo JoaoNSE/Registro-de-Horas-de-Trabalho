@@ -10,7 +10,7 @@ import br.qxd.jh.registry.model.HoursRecord;
 public interface HoursRecordRepository extends CrudRepository<HoursRecord, Long>{
 
 	@Query(value="SELECT r.id, r.worked_hours, r.date, r.user_id" + 
-			" FROM HOURS_RECORD r, user u" + 
+			" FROM HOURS_RECORD r" + 
 			" WHERE r.user_id = ?1", nativeQuery=true)
 	public Collection<HoursRecord> findRecordsByUserId(Long id);
 }

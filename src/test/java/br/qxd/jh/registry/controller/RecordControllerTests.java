@@ -60,7 +60,7 @@ public class RecordControllerTests {
 	public void insertRecordAsAnonumousShouldReturnUnauthorized() throws Exception {
 		this.mockMvc.perform(MockMvcRequestBuilders.post("/records")
 				.contentType(MediaType.APPLICATION_JSON)
-				.content("{\"userId\":\"3\", \"date\":\"2019-03-12\", \"workedHours\":12}")
+				.content("{\"userId\":\"5\", \"date\":\"2019-03-12\", \"workedHours\":12}")
 				.accept(MediaType.APPLICATION_JSON)).andExpect(status().isUnauthorized());
 		
 	}
@@ -70,7 +70,7 @@ public class RecordControllerTests {
 	public void insertRecordAuthenticatedShouldReturnOk() throws Exception {
 		this.mockMvc.perform(MockMvcRequestBuilders.post("/records")
 				.contentType(MediaType.APPLICATION_JSON)
-				.content("{\"userId\":\"3\", \"date\":\"2019-03-12\", \"workedHours\":12}")
+				.content("{\"userId\":\"5\", \"date\":\"2019-03-12\", \"workedHours\":12}")
 				.accept(MediaType.APPLICATION_JSON)).andExpect(status().isOk());
 		
 	}
@@ -81,7 +81,7 @@ public class RecordControllerTests {
 	public void inserInvalidRecordShouldReturnBadRequest() throws Exception {
 		this.mockMvc.perform(MockMvcRequestBuilders.post("/records")
 				.contentType(MediaType.APPLICATION_JSON)
-				.content("{\"date\":\"2019-03-12\", \"workedHours\":12}")
+				.content("{\"userId\":5, \"workedHours\":12}")
 				.accept(MediaType.APPLICATION_JSON)).andExpect(status().isBadRequest());
 	}
 	
