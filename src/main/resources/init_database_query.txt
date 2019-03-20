@@ -1,0 +1,10 @@
+insert into user(name, password, username) values ('admin', '$2a$10$zzWxgI.f4KfQALYxyk4V9OBXas4b.hpPdrWeTx0wRJXGevZhStIEO', 'admin');
+insert into user(id, name, password, username) values (3, 'João Victor', '$2a$10$tSLoLvzIq3YQVlgRGG4zUOZJ2SA680tbILUtIbhrotu1Hzmtamm2W', 'joaodoido');
+insert into user(id, name, password, username) values (5, 'Test User', '$2a$10$tSLoLvzIq3YQVlgRGG4zUOZJ2SA680tbILUtIbhrotu1Hzmtamm2W', 'testuser');
+
+insert into role(name) values('ADMIN');
+insert into role(name) values('USER');
+
+insert into user_roles(user_id, role_id) values(1, 1);
+insert into user_roles(user_id, role_id) values(3, 2);
+insert into user_roles(user_id, role_id) values(5, 2);

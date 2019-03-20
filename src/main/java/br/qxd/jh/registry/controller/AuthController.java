@@ -37,4 +37,5 @@ public class AuthController {
 		
 		return ResponseEntity.ok().body("Bearer" + " " + jwt);
 	}
+
 }

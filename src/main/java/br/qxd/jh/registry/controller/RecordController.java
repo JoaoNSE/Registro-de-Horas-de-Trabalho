@@ -25,7 +25,7 @@ public class RecordController {
 	private HoursRecordService hoursService;
 	
 	@GetMapping("/{id}")
-	public List<HoursRecord> getRecords(@PathVariable Long id) {
+	public List<HoursRecord> getRecordByUserId(@PathVariable Long id) {
 		return hoursService.getRecordsFromUser(id);
 	}
 	

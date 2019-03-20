@@ -25,9 +25,20 @@ public class HoursRecordDTO {
 	@NotNull
 	private Long userId;
 	
+	public HoursRecordDTO() {
+		super();
+	}
+	
 	public HoursRecordDTO(Long id, double workedHours, Date date, Long userId) {
 		super();
 		this.id = id;
+		this.workedHours = workedHours;
+		this.date = date;
+		this.userId = userId;
+	}
+	
+	public HoursRecordDTO(double workedHours, Date date, Long userId) {
+		super();
 		this.workedHours = workedHours;
 		this.date = date;
 		this.userId = userId;

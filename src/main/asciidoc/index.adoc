@@ -1,0 +1,22 @@
+= Documentação da API
+João Henrique Nobre<nobreenrique2@gmail.com> left:sectnums:
+
+== Introdução
+Essa é a documentação da API REST para o sistema de Registro de Horas de Trabalho. Aqui consta a explicação de uso
+e funcionamento de todos os endpoints desta API.
+
+== API dos Registros de Horas (HoursRecord)
+Os endpoints que compõe o CRUD para manipular os registros de horas de trabalho (HoursRecord).
+
+=== Get Record By User Id
+Obtains a specific person registered in the application by its unique identifier.
+Obtém todos os registros de horas cadastrados de um usuário indicado pelo indentificador (Id).
+
+==== Exemplo de Requisição
+include::{snippets}/record/get-by-user-id/http-request.adoc[]
+
+==== Exemplo de Resposta
+include::{snippets}/record/get-by-user-id/http-response.adoc[]
+
+==== Exemplo de Requisição com CURL
+include::{snippets}/record/get-by-user-id/curl-request.adoc[]
