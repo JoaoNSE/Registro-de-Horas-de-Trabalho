@@ -18,8 +18,10 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
+import static org.springframework.restdocs.request.RequestDocumentation.*;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.documentationConfiguration;
+import static org.springframework.restdocs.payload.PayloadDocumentation.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -48,11 +50,16 @@ public class RecordControllerTests {
 	
 	@Test
 	public void getRecordByUserIdShouldReturnOk() throws Exception {
-		this.mockMvc.perform(RestDocumentationRequestBuilders.get("/records/3"))
+		this.mockMvc.perform(RestDocumentationRequestBuilders.get("/records/{id}", 3))
 		.andDo(print())
 		.andExpect(status().isOk())
 		.andExpect(content().contentType("application/json;charset=UTF-8"))
-		.andDo(document("record/get-by-user-id"));
+		.andDo(document("record/get-by-user-id",
+				pathParameters(parameterWithName("id")
+						.description("Indetificador do usuário que se deseja ver os registros.")),
+				responseFields(fieldWithPath("[].id").description("Indentificador do registro."),
+						fieldWithPath("[].workedHours").description("Quantidade de horas trabalhadas"),
+						fieldWithPath("[].date").description("Data em que as horas foram trabalhadas."))));
 	}
 	
 	@WithAnonymousUser
