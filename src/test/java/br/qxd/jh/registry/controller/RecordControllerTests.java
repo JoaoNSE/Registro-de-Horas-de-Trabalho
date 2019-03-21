@@ -89,7 +89,7 @@ public class RecordControllerTests {
 						fieldWithPath("userId").description("Indentificador do usuário no qual será inserido o novo registro de horas."),
 						fieldWithPath("date").description("Data na qual as horas foram trabalhadas."),
 						fieldWithPath("workedHours").description("Quantidade de horas trabalhadas.")),
-				responseFields(fieldWithPath("success").description("Booleano que indica se a operação foi sucedida ou não"),
+				responseFields(fieldWithPath("success").description("Booleano que indica se a operação foi bem-sucedida ou não"),
 						fieldWithPath("message").description("Mensagem resultante da operação"))));
 		
 	}
