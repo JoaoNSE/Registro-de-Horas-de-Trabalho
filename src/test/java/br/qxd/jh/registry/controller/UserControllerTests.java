@@ -3,6 +3,7 @@ package br.qxd.jh.registry.controller;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.documentationConfiguration;
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -10,14 +11,19 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDocs;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.MediaType;
 import org.springframework.restdocs.JUnitRestDocumentation;
 import org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
+import br.qxd.jh.registry.service.UserService;
+
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.*;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -29,6 +35,9 @@ public class UserControllerTests {
 	
 	private MockMvc mockMvc;
 	
+	@Autowired
+	private UserService userService;
+	
 	@Rule
 	public JUnitRestDocumentation jUnitRestDocumentation = new JUnitRestDocumentation();
 	
@@ -38,6 +47,7 @@ public class UserControllerTests {
 				.apply(springSecurity())
 				.apply(documentationConfiguration(this.jUnitRestDocumentation))
 				.build();
+		
 	}
 	
 	@Test
@@ -47,4 +57,41 @@ public class UserControllerTests {
 		.andExpect(content().contentType("application/json;charset=UTF-8"));
 	}
 	
+	@Test
+	public void createUserShouldReturnUnauthorized() throws Exception {
+		mockMvc.perform(RestDocumentationRequestBuilders.post("/users")
+				.contentType(MediaType.APPLICATION_JSON)
+				.content("{\"username\":\"userteste10\", \"password\":\"userteste\", \"name\":\"User Teste\"}")
+				.accept(MediaType.APPLICATION_JSON))
+		.andExpect(status().isUnauthorized());
+	}
+	
+	@WithMockUser(username="joaodasilva")
+	@Test
+	public void createUserShouldReturnForbbiden() throws Exception {
+		mockMvc.perform(RestDocumentationRequestBuilders.post("/users")
+				.contentType(MediaType.APPLICATION_JSON)
+				.content("{\"username\":\"userteste10\", \"password\":\"userteste\", \"name\":\"User Teste\"}")
+				.accept(MediaType.APPLICATION_JSON))
+		.andExpect(status().isForbidden());
+	}
+	
+	@Test
+	public void createUserShouldReturnOk() throws Exception {		
+		mockMvc.perform(RestDocumentationRequestBuilders.post("/users")
+				.with(user("admin").password("admin123").roles("ADMIN"))
+				.contentType(MediaType.APPLICATION_JSON)
+				.content("{\"username\":\"userteste10\", \"password\":\"userteste\", \"name\":\"User Teste\"}")
+				.accept(MediaType.APPLICATION_JSON))
+		.andExpect(status().isOk());
+		
+		userService.deleteByUsername("userteste10");
+		
+		/*mockMvc.perform(RestDocumentationRequestBuilders.post("/users")
+				.with(user("admin").password("admin123").roles("ADMIN"))
+				.contentType(MediaType.APPLICATION_JSON)
+				.content("{\"username\":\"userteste10\"}")
+				.accept(MediaType.APPLICATION_JSON))
+		.andExpect(status().isOk());*/
+	}
 }

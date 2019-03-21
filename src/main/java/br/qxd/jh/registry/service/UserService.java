@@ -16,6 +16,10 @@ public class UserService {
 		userRepo.save(user);
 	}
 	
+	public void deleteByUsername(String username) {
+		userRepo.deleteByUsername(username);
+	}
+	
 	public Iterable<User> findAll() {
 		return userRepo.findAll();
 	}

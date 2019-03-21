@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -40,12 +41,15 @@ public class User {
 	@NotNull
 	private String name;
 	
-	@OneToMany(fetch=FetchType.LAZY, targetEntity=HoursRecord.class)
+	@OneToMany(fetch=FetchType.LAZY,
+			cascade = {CascadeType.PERSIST,CascadeType.MERGE,CascadeType.DETACH},
+			targetEntity=HoursRecord.class)
 	@JoinColumn(name="user_id")
 	@JsonManagedReference
 	private List<HoursRecord> hoursRecords;
 	
-	@ManyToMany(fetch = FetchType.EAGER)
+	@ManyToMany(fetch = FetchType.EAGER,
+			cascade = {CascadeType.PERSIST,CascadeType.MERGE,CascadeType.DETACH})
     @JoinTable(name = "user_roles",
     joinColumns = @JoinColumn(name="user_id"),
     inverseJoinColumns = @JoinColumn(name="role_id"))
