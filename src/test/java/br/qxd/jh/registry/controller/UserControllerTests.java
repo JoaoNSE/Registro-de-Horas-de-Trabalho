@@ -1,6 +1,5 @@
 package br.qxd.jh.registry.controller;
 
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -17,11 +16,9 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 import br.qxd.jh.registry.model.User;
-import br.qxd.jh.registry.repository.RoleRepository;
 import br.qxd.jh.registry.service.UserService;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.*;
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 import static org.springframework.restdocs.headers.HeaderDocumentation.headerWithName;
 import static org.springframework.restdocs.headers.HeaderDocumentation.requestHeaders;
@@ -44,9 +41,6 @@ public class UserControllerTests {
 	
 	@Autowired
 	private UserService userService;
-	
-	@Autowired
-	private RoleRepository roleRepo;
 	
 	@Rule
 	public JUnitRestDocumentation jUnitRestDocumentation = new JUnitRestDocumentation();
