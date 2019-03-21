@@ -8,6 +8,32 @@ Essa é a documentação da API REST para o sistema de Registro de Horas de Trab
 e funcionamento de todos os recursos desta API.
 
 == Autenticação
+A API utiliza, para a autenticação, um token de acesso. Esse token de acesso é informado ao realizar o login e deverá ser passado
+em todas as requisições em um cabeçalho de nome "Autorização".
+
+=== Login
+Recebe o nome de usuário e senha e recebe um token de acesso.
+
+----
+POST /login
+----
+
+==== Descrição dos Campos da Requisição
+include::{snippets}/auth/login/request-fields.adoc[]
+
+==== Descrição dos Campos da Resposta
+include::{snippets}/auth/login/response-fields.adoc[]
+
+==== Exemplo de Requisição
+include::{snippets}/auth/login/http-request.adoc[]
+
+==== Exemplo de Resposta
+include::{snippets}/auth/login/http-response.adoc[]
+
+==== Exemplo de Requisição com CURL
+include::{snippets}/auth/login/curl-request.adoc[]
+
+
 
 == Registro de Horas (HoursRecord)
 São os registros das horas de trabalho de um determinado usuário. Essa sessão definirá os endpoints para a manipulação delas (HoursRecord).

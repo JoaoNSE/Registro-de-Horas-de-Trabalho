@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.qxd.jh.registry.dto.ApiResponseDTO;
 import br.qxd.jh.registry.dto.UserDTO;
 import br.qxd.jh.registry.model.Role;
 import br.qxd.jh.registry.model.RoleName;
@@ -41,11 +42,11 @@ public class UserController {
 	
 	@Secured("ADMIN")
 	@PostMapping("/register")
-	public ResponseEntity<String> register(@Valid @RequestBody UserDTO user) {
+	public ResponseEntity<ApiResponseDTO> register(@Valid @RequestBody UserDTO user) {
 		
 		//Verifica se já existe usuário cadastrado com o username informado
 		if (userService.existsByUsername(user.getUsername())) {
-			return new ResponseEntity<>("Username already in use", HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<>(new ApiResponseDTO(false, "Username already in use"), HttpStatus.BAD_REQUEST);
 		}
 		
 		//Criando a conta do usuário
@@ -58,7 +59,7 @@ public class UserController {
 		
 		userService.saveUser(us);
 		
-		return ResponseEntity.ok("User created successfully.");
+		return ResponseEntity.ok(new ApiResponseDTO(true, "User created successfully."));
 		
 		
 	}

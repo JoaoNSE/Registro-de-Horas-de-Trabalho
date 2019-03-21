@@ -441,7 +441,11 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
 <li><a href="#_introdução">1. Introdução</a></li>
-<li><a href="#_autenticação">2. Autenticação</a></li>
+<li><a href="#_autenticação">2. Autenticação</a>
+<ul class="sectlevel2">
+<li><a href="#_login">2.1. Login</a></li>
+</ul>
+</li>
 <li><a href="#_registro_de_horas_hoursrecord">3. Registro de Horas (HoursRecord)</a>
 <ul class="sectlevel2">
 <li><a href="#_obter_os_registros_de_um_usuário_específico">3.1. Obter os Registros de um Usuário Específico</a></li>
@@ -464,7 +468,117 @@ e funcionamento de todos os recursos desta API.</p>
 <div class="sect1">
 <h2 id="_autenticação">2. Autenticação</h2>
 <div class="sectionbody">
+<div class="paragraph">
+<p>A API utiliza, para a autenticação, um token de acesso. Esse token de acesso é informado ao realizar o login e deverá ser passado
+em todas as requisições em um cabeçalho de nome "Autorização".</p>
+</div>
+<div class="sect2">
+<h3 id="_login">2.1. Login</h3>
+<div class="paragraph">
+<p>Recebe o nome de usuário e senha e recebe um token de acesso.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>POST /login</pre>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_descrição_dos_campos_da_requisição">2.1.1. Descrição dos Campos da Requisição</h4>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Path</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>username</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Nome de usuário.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>password</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Senha do usuário.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect3">
+<h4 id="_descrição_dos_campos_da_resposta">2.1.2. Descrição dos Campos da Resposta</h4>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Path</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>accessToken</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Token de acesso do usuário que foi logado. Isto deve ser informado nas requisições.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect3">
+<h4 id="_exemplo_de_requisição">2.1.3. Exemplo de Requisição</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight nowrap"><code class="language-http" data-lang="http">POST /login HTTP/1.1
+Accept: application/json
+Content-Length: 43
+Content-Type: application/json
+Host: localhost:8080
 
+{"username":"admin", "password":"admin123"}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_exemplo_de_resposta">2.1.4. Exemplo de Resposta</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight nowrap"><code class="language-http" data-lang="http">HTTP/1.1 200 OK
+Pragma: no-cache
+X-XSS-Protection: 1; mode=block
+Expires: 0
+X-Frame-Options: DENY
+X-Content-Type-Options: nosniff
+Content-Length: 193
+Content-Type: application/json;charset=UTF-8
+Cache-Control: no-cache, no-store, max-age=0, must-revalidate
+
+{"accessToken":"Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNTUzMTM1MjkyLCJleHAiOjE1NTM3NDAwOTJ9.WVKjOkQcJ08fORT3fBfO_4wVhZHmQsjXUZzDXuTnZPk_aMqJVjw_BBGr1wPGUUyQjenHin338JfJR8krqOeNRA"}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_exemplo_de_requisição_com_curl">2.1.5. Exemplo de Requisição com CURL</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ curl 'http://localhost:8080/login' -i -X POST \
+    -H 'Accept: application/json' \
+    -H 'Content-Type: application/json' \
+    -d '{"username":"admin", "password":"admin123"}'</code></pre>
+</div>
+</div>
+</div>
+</div>
 </div>
 </div>
 <div class="sect1">
@@ -506,7 +620,7 @@ e funcionamento de todos os recursos desta API.</p>
 </table>
 </div>
 <div class="sect3">
-<h4 id="_descrição_dos_campos_da_resposta">3.1.2. Descrição dos Campos da Resposta</h4>
+<h4 id="_descrição_dos_campos_da_resposta_2">3.1.2. Descrição dos Campos da Resposta</h4>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
 <col style="width: 33.3333%;">
@@ -540,7 +654,7 @@ e funcionamento de todos os recursos desta API.</p>
 </table>
 </div>
 <div class="sect3">
-<h4 id="_exemplo_de_requisição">3.1.3. Exemplo de Requisição</h4>
+<h4 id="_exemplo_de_requisição_2">3.1.3. Exemplo de Requisição</h4>
 <div class="listingblock">
 <div class="content">
 <pre class="highlight nowrap"><code class="language-http" data-lang="http">GET /records/user/3 HTTP/1.1
@@ -549,7 +663,7 @@ Host: localhost:8080</code></pre>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_exemplo_de_resposta">3.1.4. Exemplo de Resposta</h4>
+<h4 id="_exemplo_de_resposta_2">3.1.4. Exemplo de Resposta</h4>
 <div class="listingblock">
 <div class="content">
 <pre class="highlight nowrap"><code class="language-http" data-lang="http">HTTP/1.1 200 OK
@@ -567,7 +681,7 @@ Cache-Control: no-cache, no-store, max-age=0, must-revalidate
 </div>
 </div>
 <div class="sect3">
-<h4 id="_exemplo_de_requisição_com_curl">3.1.5. Exemplo de Requisição com CURL</h4>
+<h4 id="_exemplo_de_requisição_com_curl_2">3.1.5. Exemplo de Requisição com CURL</h4>
 <div class="listingblock">
 <div class="content">
 <pre class="highlight"><code class="language-bash" data-lang="bash">$ curl 'http://localhost:8080/records/user/3' -i -X GET</code></pre>
@@ -613,13 +727,13 @@ Esse recurso só pode ser utilizado por usuários autenticados.
 <tbody>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>Authorization</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Token JWT de autorização recebido no login.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Token de acesso recebido no login.</p></td>
 </tr>
 </tbody>
 </table>
 </div>
 <div class="sect3">
-<h4 id="_descrição_dos_campos_da_requisição">3.2.2. Descrição dos Campos da Requisição</h4>
+<h4 id="_descrição_dos_campos_da_requisição_2">3.2.2. Descrição dos Campos da Requisição</h4>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
 <col style="width: 33.3333%;">
@@ -653,7 +767,7 @@ Esse recurso só pode ser utilizado por usuários autenticados.
 </table>
 </div>
 <div class="sect3">
-<h4 id="_descrição_dos_campos_da_resposta_2">3.2.3. Descrição dos Campos da Resposta</h4>
+<h4 id="_descrição_dos_campos_da_resposta_3">3.2.3. Descrição dos Campos da Resposta</h4>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
 <col style="width: 33.3333%;">
@@ -682,22 +796,22 @@ Esse recurso só pode ser utilizado por usuários autenticados.
 </table>
 </div>
 <div class="sect3">
-<h4 id="_exemplo_de_requisição_2">3.2.4. Exemplo de Requisição</h4>
+<h4 id="_exemplo_de_requisição_3">3.2.4. Exemplo de Requisição</h4>
 <div class="listingblock">
 <div class="content">
 <pre class="highlight nowrap"><code class="language-http" data-lang="http">POST /records HTTP/1.1
 Accept: application/json
 Content-Length: 53
-Authorization: Bearer {token JWT}
 Content-Type: application/json
 Host: localhost:8080
+Authorization: Bearer {access_token}
 
 {"userId":"5", "date":"2019-03-12", "workedHours":12}</code></pre>
 </div>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_exemplo_de_resposta_2">3.2.5. Exemplo de Resposta</h4>
+<h4 id="_exemplo_de_resposta_3">3.2.5. Exemplo de Resposta</h4>
 <div class="listingblock">
 <div class="content">
 <pre class="highlight nowrap"><code class="language-http" data-lang="http">HTTP/1.1 200 OK
@@ -715,13 +829,13 @@ Cache-Control: no-cache, no-store, max-age=0, must-revalidate
 </div>
 </div>
 <div class="sect3">
-<h4 id="_exemplo_de_requisição_com_curl_2">3.2.6. Exemplo de Requisição com CURL</h4>
+<h4 id="_exemplo_de_requisição_com_curl_3">3.2.6. Exemplo de Requisição com CURL</h4>
 <div class="listingblock">
 <div class="content">
 <pre class="highlight"><code class="language-bash" data-lang="bash">$ curl 'http://localhost:8080/records' -i -X POST \
     -H 'Accept: application/json' \
-    -H 'Authorization: Bearer {token JWT}' \
     -H 'Content-Type: application/json' \
+    -H 'Authorization: Bearer {access_token}' \
     -d '{"userId":"5", "date":"2019-03-12", "workedHours":12}'</code></pre>
 </div>
 </div>
@@ -732,7 +846,7 @@ Cache-Control: no-cache, no-store, max-age=0, must-revalidate
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2019-03-20 22:21:39 GFT
+Last updated 2019-03-20 23:17:53 GFT
 </div>
 </div>
 </body>

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import br.qxd.jh.registry.dto.LoginDTO;
+import br.qxd.jh.registry.dto.LoginResponseDTO;
 import br.qxd.jh.registry.security.JwtTokenProvider;
 
 
@@ -25,7 +26,7 @@ public class AuthController {
 	
 	
 	@PostMapping("/login")
-	public ResponseEntity<String> login(@Valid @RequestBody LoginDTO login) {
+	public ResponseEntity<LoginResponseDTO> login(@Valid @RequestBody LoginDTO login) {
 		Authentication authentication = authenticationManager.authenticate(
 				new UsernamePasswordAuthenticationToken(
 						login.getUsername(), 
@@ -35,7 +36,7 @@ public class AuthController {
 		SecurityContextHolder.getContext().setAuthentication(authentication);
 		String jwt = jwtTokenProvider.generateToken(authentication);
 		
-		return ResponseEntity.ok().body("Bearer" + " " + jwt);
+		return ResponseEntity.ok().body(new LoginResponseDTO("Bearer" + " " + jwt));
 	}
 
 }
