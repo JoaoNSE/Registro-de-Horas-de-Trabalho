@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.qxd.jh.registry.dto.ApiResponseDTO;
 import br.qxd.jh.registry.dto.HoursRecordDTO;
 import br.qxd.jh.registry.model.HoursRecord;
 import br.qxd.jh.registry.service.HoursRecordService;
@@ -24,16 +25,16 @@ public class RecordController {
 	@Autowired
 	private HoursRecordService hoursService;
 	
-	@GetMapping("/{id}")
+	@GetMapping("/user/{id}")
 	public List<HoursRecord> getRecordByUserId(@PathVariable Long id) {
 		return hoursService.getRecordsFromUser(id);
 	}
 	
 	@PostMapping()
-	public ResponseEntity<String> insertRecord(@Valid @RequestBody HoursRecordDTO record) {
+	public ResponseEntity<ApiResponseDTO> insertRecord(@Valid @RequestBody HoursRecordDTO record) {
 		hoursService.insertRecordInUser(record.getUserId(), record.getWorkedHours(), record.getDate());
 		
-		return ResponseEntity.ok("Record inserted successfully in user with id: " + record.getUserId());
+		return ResponseEntity.ok(new ApiResponseDTO(true, "Record inserted successfully in user with id: " + record.getUserId()));
 	}
 
 }

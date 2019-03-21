@@ -7,14 +7,22 @@ João Henrique Nobre<nobreenrique2@gmail.com>
 Essa é a documentação da API REST para o sistema de Registro de Horas de Trabalho. Aqui consta a explicação de uso
 e funcionamento de todos os endpoints desta API.
 
-== API de HoursRecord
-Os endpoints que compõem o CRUD para manipular os registros de horas de trabalho (HoursRecord).
+== Registro de Horas (HoursRecord)
+São os registros das horas de trabalho de um determinado usuário. Essa sessão definirá os endpoints para a manipulação delas (HoursRecord).
 
-=== Get Record By User Id
+
+=== Obter os Registros de um Usuário Específico
 Obtém todos os registros de horas cadastrados de um usuário específico indicado pelo indentificador (Id).
 
-==== Path Parameters
+----
+GET /records/user/{id}
+----
+
+==== Parâmetros da Requisição
 include::{snippets}/record/get-by-user-id/path-parameters.adoc[]
+
+==== Descrição dos Campos da Resposta
+include::{snippets}/record/get-by-user-id/response-fields.adoc[]
 
 ==== Exemplo de Requisição
 include::{snippets}/record/get-by-user-id/http-request.adoc[]
@@ -22,8 +30,33 @@ include::{snippets}/record/get-by-user-id/http-request.adoc[]
 ==== Exemplo de Resposta
 include::{snippets}/record/get-by-user-id/http-response.adoc[]
 
-==== Descrição dos Campos da Resposta
-include::{snippets}/record/get-by-user-id/response-fields.adoc[]
-
 ==== Exemplo de Requisição com CURL
 include::{snippets}/record/get-by-user-id/curl-request.adoc[]
+
+
+//TODO: Deixa claro de alguma forma que é preciso estar autenticado para utilizar esse método.
+
+
+=== Inserir um Novo Registro
+Insere um novo registro de horas de trabalho no usuário indicado.
+
+----
+POST /records
+----
+
+IMPORTANT: Esse recurso só pode ser utilizado por usuários autenticados.
+
+==== Descrição dos Campos da Requisição
+include::{snippets}/record/insert-record/request-fields.adoc[]
+
+==== Descrição dos Campos da Resposta
+include::{snippets}/record/insert-record/response-fields.adoc[]
+
+==== Exemplo de Requisição
+include::{snippets}/record/insert-record/http-request.adoc[]
+
+==== Exemplo de Resposta
+include::{snippets}/record/insert-record/http-response.adoc[]
+
+==== Exemplo de Requisição com CURL
+include::{snippets}/record/insert-record/curl-request.adoc[]

@@ -441,9 +441,10 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
 <li><a href="#_introdução">1. Introdução</a></li>
-<li><a href="#_api_dos_registros_de_horas_hoursrecord">2. API dos Registros de Horas (HoursRecord)</a>
+<li><a href="#_registro_de_horas_hoursrecord">2. Registro de Horas (HoursRecord)</a>
 <ul class="sectlevel2">
-<li><a href="#_get_record_by_user_id">2.1. Get Record By User Id</a></li>
+<li><a href="#_obter_os_registros_de_um_usuário_específico">2.1. Obter os Registros de um Usuário Específico</a></li>
+<li><a href="#_inserir_um_novo_registro">2.2. Inserir um Novo Registro</a></li>
 </ul>
 </li>
 </ul>
@@ -460,21 +461,25 @@ e funcionamento de todos os endpoints desta API.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_api_dos_registros_de_horas_hoursrecord">2. API dos Registros de Horas (HoursRecord)</h2>
+<h2 id="_registro_de_horas_hoursrecord">2. Registro de Horas (HoursRecord)</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Os endpoints que compõe o CRUD para manipular os registros de horas de trabalho (HoursRecord).</p>
+<p>São os registros das horas de trabalho de um determinado usuário. Essa sessão definirá os endpoints para a manipulação delas (HoursRecord).</p>
 </div>
 <div class="sect2">
-<h3 id="_get_record_by_user_id">2.1. Get Record By User Id</h3>
+<h3 id="_obter_os_registros_de_um_usuário_específico">2.1. Obter os Registros de um Usuário Específico</h3>
 <div class="paragraph">
-<p>Obtains a specific person registered in the application by its unique identifier.
-Obtém todos os registros de horas cadastrados de um usuário indicado pelo indentificador (Id).</p>
+<p>Obtém todos os registros de horas cadastrados de um usuário específico indicado pelo indentificador (Id).</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>GET /records/user/{id}</pre>
+</div>
 </div>
 <div class="sect3">
-<h4 id="_path_parameters">2.1.1. Path Parameters</h4>
+<h4 id="_parâmetros_da_requisição">2.1.1. Parâmetros da Requisição</h4>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 1. /records/{id}</caption>
+<caption class="title">Table 1. /records/user/{id}</caption>
 <colgroup>
 <col style="width: 50%;">
 <col style="width: 50%;">
@@ -494,34 +499,7 @@ Obtém todos os registros de horas cadastrados de um usuário indicado pelo inde
 </table>
 </div>
 <div class="sect3">
-<h4 id="_exemplo_de_requisição">2.1.2. Exemplo de Requisição</h4>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight nowrap"><code class="language-http" data-lang="http">GET /records/3 HTTP/1.1
-Host: localhost:8080</code></pre>
-</div>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_exemplo_de_resposta">2.1.3. Exemplo de Resposta</h4>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight nowrap"><code class="language-http" data-lang="http">HTTP/1.1 200 OK
-Pragma: no-cache
-X-XSS-Protection: 1; mode=block
-Content-Length: 66
-Expires: 0
-X-Frame-Options: DENY
-X-Content-Type-Options: nosniff
-Content-Type: application/json;charset=UTF-8
-Cache-Control: no-cache, no-store, max-age=0, must-revalidate
-
-[{"id":1,"workedHours":8.0,"date":"2019-03-12T00:00:00.000+0000"}]</code></pre>
-</div>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_descrição_dos_campos_da_resposta">2.1.4. Descrição dos Campos da Resposta</h4>
+<h4 id="_descrição_dos_campos_da_resposta">2.1.2. Descrição dos Campos da Resposta</h4>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
 <col style="width: 33.3333%;">
@@ -555,10 +533,166 @@ Cache-Control: no-cache, no-store, max-age=0, must-revalidate
 </table>
 </div>
 <div class="sect3">
+<h4 id="_exemplo_de_requisição">2.1.3. Exemplo de Requisição</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight nowrap"><code class="language-http" data-lang="http">GET /records/user/3 HTTP/1.1
+Host: localhost:8080</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_exemplo_de_resposta">2.1.4. Exemplo de Resposta</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight nowrap"><code class="language-http" data-lang="http">HTTP/1.1 200 OK
+Pragma: no-cache
+X-XSS-Protection: 1; mode=block
+Content-Length: 66
+Expires: 0
+X-Frame-Options: DENY
+X-Content-Type-Options: nosniff
+Content-Type: application/json;charset=UTF-8
+Cache-Control: no-cache, no-store, max-age=0, must-revalidate
+
+[{"id":1,"workedHours":8.0,"date":"2019-03-12T00:00:00.000+0000"}]</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
 <h4 id="_exemplo_de_requisição_com_curl">2.1.5. Exemplo de Requisição com CURL</h4>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-bash" data-lang="bash">$ curl 'http://localhost:8080/records/3' -i -X GET</code></pre>
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ curl 'http://localhost:8080/records/user/3' -i -X GET</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_inserir_um_novo_registro">2.2. Inserir um Novo Registro</h3>
+<div class="paragraph">
+<p>Insere um novo registro de horas de trabalho no usuário indicado.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>POST /records</pre>
+</div>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Important</div>
+</td>
+<td class="content">
+Esse recurso só pode ser utilizado por usuários autenticados.
+</td>
+</tr>
+</table>
+</div>
+<div class="sect3">
+<h4 id="_descrição_dos_campos_da_requisição">2.2.1. Descrição dos Campos da Requisição</h4>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Path</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>userId</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Indentificador do usuário no qual será inserido o novo registro de horas.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>date</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Data na qual as horas foram trabalhadas.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>workedHours</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Quantidade de horas trabalhadas.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect3">
+<h4 id="_descrição_dos_campos_da_resposta_2">2.2.2. Descrição dos Campos da Resposta</h4>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Path</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>success</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Boolean</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Booleano que indica se a operação foi sucedida ou não</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>message</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Mensagem resultante da operação</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect3">
+<h4 id="_exemplo_de_requisição_2">2.2.3. Exemplo de Requisição</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight nowrap"><code class="language-http" data-lang="http">POST /records HTTP/1.1
+Accept: application/json
+Content-Length: 53
+Content-Type: application/json
+Host: localhost:8080
+
+{"userId":"5", "date":"2019-03-12", "workedHours":12}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_exemplo_de_resposta_2">2.2.4. Exemplo de Resposta</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight nowrap"><code class="language-http" data-lang="http">HTTP/1.1 200 OK
+Pragma: no-cache
+Content-Length: 76
+X-XSS-Protection: 1; mode=block
+Expires: 0
+X-Frame-Options: DENY
+X-Content-Type-Options: nosniff
+Content-Type: application/json;charset=UTF-8
+Cache-Control: no-cache, no-store, max-age=0, must-revalidate
+
+{"success":true,"message":"Record inserted successfully in user with id: 5"}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_exemplo_de_requisição_com_curl_2">2.2.5. Exemplo de Requisição com CURL</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">$ curl 'http://localhost:8080/records' -i -X POST \
+    -H 'Accept: application/json' \
+    -H 'Content-Type: application/json' \
+    -d '{"userId":"5", "date":"2019-03-12", "workedHours":12}'</code></pre>
 </div>
 </div>
 </div>
@@ -568,7 +702,7 @@ Cache-Control: no-cache, no-store, max-age=0, must-revalidate
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2019-03-20 17:23:28 GFT
+Last updated 2019-03-20 21:28:00 GFT
 </div>
 </div>
 </body>

@@ -50,7 +50,7 @@ public class RecordControllerTests {
 	
 	@Test
 	public void getRecordByUserIdShouldReturnOk() throws Exception {
-		this.mockMvc.perform(RestDocumentationRequestBuilders.get("/records/{id}", 3))
+		this.mockMvc.perform(RestDocumentationRequestBuilders.get("/records/user/{id}", 3))
 		.andDo(print())
 		.andExpect(status().isOk())
 		.andExpect(content().contentType("application/json;charset=UTF-8"))
@@ -75,10 +75,19 @@ public class RecordControllerTests {
 	@WithMockUser(username="joaodasilva")
 	@Test
 	public void insertRecordAuthenticatedShouldReturnOk() throws Exception {
-		this.mockMvc.perform(MockMvcRequestBuilders.post("/records")
+		this.mockMvc.perform(RestDocumentationRequestBuilders.post("/records")
 				.contentType(MediaType.APPLICATION_JSON)
 				.content("{\"userId\":\"5\", \"date\":\"2019-03-12\", \"workedHours\":12}")
-				.accept(MediaType.APPLICATION_JSON)).andExpect(status().isOk());
+				.accept(MediaType.APPLICATION_JSON))
+		.andExpect(status().isOk())
+		.andExpect(content().contentType("application/json;charset=UTF-8"))
+		.andDo(document("record/insert-record",
+				requestFields (
+						fieldWithPath("userId").description("Indentificador do usuário no qual será inserido o novo registro de horas."),
+						fieldWithPath("date").description("Data na qual as horas foram trabalhadas."),
+						fieldWithPath("workedHours").description("Quantidade de horas trabalhadas.")),
+				responseFields(fieldWithPath("success").description("Booleano que indica se a operação foi sucedida ou não"),
+						fieldWithPath("message").description("Mensagem resultante da operação"))));
 		
 	}
 	
