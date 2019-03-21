@@ -22,6 +22,7 @@ import static org.springframework.restdocs.request.RequestDocumentation.*;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.documentationConfiguration;
 import static org.springframework.restdocs.payload.PayloadDocumentation.*;
+import static org.springframework.restdocs.headers.HeaderDocumentation.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -76,12 +77,14 @@ public class RecordControllerTests {
 	@Test
 	public void insertRecordAuthenticatedShouldReturnOk() throws Exception {
 		this.mockMvc.perform(RestDocumentationRequestBuilders.post("/records")
+				.header("Authorization", "Bearer <<Authorization>>")
 				.contentType(MediaType.APPLICATION_JSON)
 				.content("{\"userId\":\"5\", \"date\":\"2019-03-12\", \"workedHours\":12}")
 				.accept(MediaType.APPLICATION_JSON))
 		.andExpect(status().isOk())
 		.andExpect(content().contentType("application/json;charset=UTF-8"))
 		.andDo(document("record/insert-record",
+				requestHeaders(headerWithName("Authorization").description("Token JWT de autorização recebido no login.")),
 				requestFields (
 						fieldWithPath("userId").description("Indentificador do usuário no qual será inserido o novo registro de horas."),
 						fieldWithPath("date").description("Data na qual as horas foram trabalhadas."),

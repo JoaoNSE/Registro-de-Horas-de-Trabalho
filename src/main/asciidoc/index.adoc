@@ -4,8 +4,10 @@ João Henrique Nobre<nobreenrique2@gmail.com>
 :toc: left
 
 == Introdução
-Essa é a documentação da API REST para o sistema de Registro de Horas de Trabalho. Aqui consta a explicação de uso
-e funcionamento de todos os endpoints desta API.
+Essa é a documentação da API REST para o sistema de Registro de Horas de Trabalho. Aqui constará toda a explicação de uso
+e funcionamento de todos os recursos desta API.
+
+== Autenticação
 
 == Registro de Horas (HoursRecord)
 São os registros das horas de trabalho de um determinado usuário. Essa sessão definirá os endpoints para a manipulação delas (HoursRecord).
@@ -45,6 +47,9 @@ POST /records
 ----
 
 IMPORTANT: Esse recurso só pode ser utilizado por usuários autenticados.
+
+==== Descrição dos Cabeçalhos da Requisição
+include::{snippets}/record/insert-record/request-headers.adoc[]
 
 ==== Descrição dos Campos da Requisição
 include::{snippets}/record/insert-record/request-fields.adoc[]
