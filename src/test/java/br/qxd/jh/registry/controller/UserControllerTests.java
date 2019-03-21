@@ -20,9 +20,16 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
+import br.qxd.jh.registry.model.Role;
+import br.qxd.jh.registry.model.RoleName;
+import br.qxd.jh.registry.model.User;
+import br.qxd.jh.registry.repository.RoleRepository;
 import br.qxd.jh.registry.service.UserService;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+
+import java.util.Collections;
+
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.*;
 
 @RunWith(SpringRunner.class)
@@ -38,8 +45,16 @@ public class UserControllerTests {
 	@Autowired
 	private UserService userService;
 	
+	@Autowired
+	private RoleRepository roleRepo;
+	
 	@Rule
 	public JUnitRestDocumentation jUnitRestDocumentation = new JUnitRestDocumentation();
+	
+	private void createDeleteTestUser() {
+		User us = new User("usertesteDelete", "passteeeste", "Teste Delete");
+		userService.saveUser(us);
+	}
 	
 	@Before
 	public void setup() {
@@ -76,22 +91,27 @@ public class UserControllerTests {
 		.andExpect(status().isForbidden());
 	}
 	
+	@WithMockUser(username="admin", roles= {"ADMIN"})
 	@Test
 	public void createUserShouldReturnOk() throws Exception {		
 		mockMvc.perform(RestDocumentationRequestBuilders.post("/users")
-				.with(user("admin").password("admin123").roles("ADMIN"))
 				.contentType(MediaType.APPLICATION_JSON)
 				.content("{\"username\":\"userteste10\", \"password\":\"userteste\", \"name\":\"User Teste\"}")
 				.accept(MediaType.APPLICATION_JSON))
 		.andExpect(status().isOk());
 		
 		userService.deleteByUsername("userteste10");
+	}
+	
+	@WithMockUser(username="admin", roles= {"ADMIN"})
+	@Test
+	public void deleteUserByUsernameShouldReturnOk() throws Exception {
+		createDeleteTestUser();
 		
-		/*mockMvc.perform(RestDocumentationRequestBuilders.post("/users")
-				.with(user("admin").password("admin123").roles("ADMIN"))
+		mockMvc.perform(RestDocumentationRequestBuilders.post("/users/delete")
 				.contentType(MediaType.APPLICATION_JSON)
-				.content("{\"username\":\"userteste10\"}")
+				.content("{\"username\":\"usertesteDelete\"}")
 				.accept(MediaType.APPLICATION_JSON))
-		.andExpect(status().isOk());*/
+		.andExpect(status().isOk());
 	}
 }

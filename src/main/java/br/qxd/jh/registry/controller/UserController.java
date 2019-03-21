@@ -63,6 +63,7 @@ public class UserController {
 		return ResponseEntity.ok(new ApiResponseDTO(true, "User created successfully."));
 	}
 	
+	@Secured("ROLE_ADMIN")
 	@PostMapping("/delete")
 	public ResponseEntity<ApiResponseDTO> deleteUser(@Valid @RequestBody DeleteUserRequestDTO req) {
 		//Verifica se já existe usuário cadastrado com o username informado
