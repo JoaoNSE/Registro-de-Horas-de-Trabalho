@@ -1,10 +1,33 @@
-insert into user(name, password, username) values ('admin', '$2a$10$zzWxgI.f4KfQALYxyk4V9OBXas4b.hpPdrWeTx0wRJXGevZhStIEO', 'admin');
-insert into user(id, name, password, username) values (3, 'João Victor', '$2a$10$tSLoLvzIq3YQVlgRGG4zUOZJ2SA680tbILUtIbhrotu1Hzmtamm2W', 'joaodoido');
-insert into user(id, name, password, username) values (5, 'Test User', '$2a$10$tSLoLvzIq3YQVlgRGG4zUOZJ2SA680tbILUtIbhrotu1Hzmtamm2W', 'testuser');
+create table usuario(id serial primary key, 
+	name varchar(255) not null,
+	password varchar(255) not null,
+	username varchar(255) unique);
 
-insert into role(name) values('ROLE_ADMIN');
-insert into role(name) values('ROLE_USER');
+create table role(id int primary key, name varchar(60) not null);
+
+CREATE TABLE user_roles (
+	user_id integer, 
+	role_id integer, 
+	foreign key (user_id) REFERENCES usuario (id) ON UPDATE CASCADE ON DELETE cascade,
+	foreign key (role_id) REFERENCES role(id) ON UPDATE CASCADE,
+	CONSTRAINT user_roles_pkey PRIMARY KEY (user_id, role_id) 
+);
+
+CREATE TABLE hours_record(
+  id serial primary key, 
+  date DATE NOT NULL DEFAULT CURRENT_DATE, 
+  worked_hours float not null, 
+  user_id integer, 
+  foreign key (user_id) references usuario (id)
+);
+
+insert into usuario(name, password, username) values ('admin', '$2a$10$zzWxgI.f4KfQALYxyk4V9OBXas4b.hpPdrWeTx0wRJXGevZhStIEO', 'admin');
+insert into usuario(name, password, username) values ('João Victor', '$2y$12$8QyT5GJQZAyM98xbQLz0p.wIPXH5gshGrjl.vlQElxzeglk6ongOq', 'joaodoido');
+insert into usuario(name, password, username) values ('Test User', '$2a$10$tSLoLvzIq3YQVlgRGG4zUOZJ2SA680tbILUtIbhrotu1Hzmtamm2W', 'testuser');
+
+insert into role(id, name) values(1, 'ROLE_ADMIN');
+insert into role(id, name) values(2, 'ROLE_USER');
 
 insert into user_roles(user_id, role_id) values(1, 1);
+insert into user_roles(user_id, role_id) values(2, 2);
 insert into user_roles(user_id, role_id) values(3, 2);
-insert into user_roles(user_id, role_id) values(5, 2);

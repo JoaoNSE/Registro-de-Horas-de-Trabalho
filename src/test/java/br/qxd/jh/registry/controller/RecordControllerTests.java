@@ -51,7 +51,7 @@ public class RecordControllerTests {
 	
 	@Test
 	public void getRecordByUserIdShouldReturnOk() throws Exception {
-		this.mockMvc.perform(RestDocumentationRequestBuilders.get("/records/user/{id}", 3))
+		this.mockMvc.perform(RestDocumentationRequestBuilders.get("/records/user/{id}", 2))
 		.andDo(print())
 		.andExpect(status().isOk())
 		.andExpect(content().contentType("application/json;charset=UTF-8"))
@@ -68,18 +68,18 @@ public class RecordControllerTests {
 	public void insertRecordAsAnonumousShouldReturnUnauthorized() throws Exception {
 		this.mockMvc.perform(MockMvcRequestBuilders.post("/records")
 				.contentType(MediaType.APPLICATION_JSON)
-				.content("{\"userId\":\"5\", \"date\":\"2019-03-12\", \"workedHours\":12}")
+				.content("{\"userId\":\"2\", \"date\":\"2019-03-12\", \"workedHours\":12}")
 				.accept(MediaType.APPLICATION_JSON)).andExpect(status().isUnauthorized());
 		
 	}
 	
-	@WithMockUser(username="joaodasilva")
+	@WithMockUser(username="joaodoido")
 	@Test
 	public void insertRecordAuthenticatedShouldReturnOk() throws Exception {
 		this.mockMvc.perform(RestDocumentationRequestBuilders.post("/records")
 				.header("Authorization", "Bearer {access_token}")
 				.contentType(MediaType.APPLICATION_JSON)
-				.content("{\"userId\":\"5\", \"date\":\"2019-03-12\", \"workedHours\":12}")
+				.content("{\"userId\":\"2\", \"date\":\"2019-03-12\", \"workedHours\":12}")
 				.accept(MediaType.APPLICATION_JSON))
 		.andExpect(status().isOk())
 		.andExpect(content().contentType("application/json;charset=UTF-8"))
