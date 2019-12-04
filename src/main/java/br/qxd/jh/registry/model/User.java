@@ -22,7 +22,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
-@Table(uniqueConstraints = {
+@Table(name="usuario", uniqueConstraints = {
         @UniqueConstraint(columnNames = {
             "username"
         })
